@@ -1,0 +1,12 @@
+{
+  "name": "Love Link",
+  "description": "A private relationship app designed for couples to connect, communicate, and grow together.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

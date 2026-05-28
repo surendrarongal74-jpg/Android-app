@@ -1,0 +1,224 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user in the app",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "coupleSpaceId": { "type": "string", "description": "ID of the shared couple space" },
+        "photoURL": { "type": "string" },
+        "mood": { "type": "string" },
+        "loveLanguage": { "type": "string" },
+        "isOnline": { "type": "boolean" },
+        "lastSeen": { "type": "integer" },
+        "fcmToken": { "type": "string" },
+        "setupComplete": { "type": "boolean" }
+      },
+      "required": ["id", "email"]
+    },
+    "CoupleSpace": {
+      "title": "Couple Space",
+      "description": "A private space for two users",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "partner1Id": { "type": "string" },
+        "partner2Id": { "type": "string" },
+        "inviteCode": { "type": "string" },
+        "streak": { "type": "integer" },
+        "lastInteractionAt": { "type": "integer", "description": "Timestamp" },
+        "createdAt": { "type": "integer" },
+        "xp": { "type": "integer" },
+        "level": { "type": "integer" },
+        "chatBackground": { "type": "string" },
+        "chatMood": { "type": "string", "enum": ["romantic", "cozy", "exciting", "peaceful"] }
+      },
+      "required": ["id", "partner1Id", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message or reaction between partners",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "content": { "type": "string" },
+        "type": { "type": "string", "enum": ["text", "reaction", "image", "voice", "sync_invite"] },
+        "createdAt": { "type": "integer" },
+        "seen": { "type": "boolean" },
+        "viewOnce": { "type": "boolean" },
+        "viewed": { "type": "boolean" },
+        "reactions": { 
+          "type": "object",
+          "description": "Map of userId to emoji string"
+        }
+      },
+      "required": ["id", "coupleSpaceId", "senderId", "type", "createdAt"]
+    },
+    "DailyQuestion": {
+      "title": "Daily Question",
+      "description": "Daily sync question for the couple",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "question": { "type": "string" },
+        "date": { "type": "string" },
+        "answer1": { "type": "string" },
+        "answer1Id": { "type": "string" },
+        "answer2": { "type": "string" },
+        "answer2Id": { "type": "string" }
+      },
+      "required": ["id", "coupleSpaceId", "question", "date"]
+    },
+    "Memory": {
+      "title": "Memory",
+      "description": "A shared memory milestone",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "type": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "coupleSpaceId", "creatorId", "type", "content", "date"]
+    },
+    "Mood": {
+      "title": "Mood",
+      "description": "Daily mood entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "userId": { "type": "string" },
+        "mood": { "type": "string" },
+        "note": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["id", "coupleSpaceId", "userId", "mood", "date"]
+    },
+    "Call": {
+      "title": "Call",
+      "description": "A WebRTC call signaling request",
+      "type": "object",
+      "properties": {
+        "callerId": { "type": "string" },
+        "calleeId": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "integer" }
+      },
+      "required": ["callerId", "calleeId", "type", "status", "createdAt"]
+    },
+    "CallCandidate": {
+      "title": "Call Candidate",
+      "description": "An ICE candidate",
+      "type": "object",
+      "properties": {
+        "candidate": { "type": "string" }
+      }
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A push or in-app notification for a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["chat", "call", "reaction", "mood", "memory", "aira", "streak", "gift"] },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "data": { "type": "object", "description": "Additional data like senderId, messageId, etc" },
+        "createdAt": { "type": "integer" },
+        "read": { "type": "boolean" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"] }
+      },
+      "required": ["id", "userId", "type", "title", "body", "createdAt"]
+    },
+    "LoveCapsule": {
+      "title": "Love Capsule",
+      "description": "A scheduled future memory or message",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "type": { "type": "string", "enum": ["letter", "voice", "photo"] },
+        "content": { "type": "string" },
+        "unlockAt": { "type": "integer" },
+        "createdAt": { "type": "integer" },
+        "isUnlocked": { "type": "boolean" }
+      },
+      "required": ["id", "coupleSpaceId", "creatorId", "type", "content", "unlockAt", "createdAt"]
+    },
+    "Dream": {
+      "title": "Dream",
+      "description": "A shared goal or wishlist item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "coupleSpaceId": { "type": "string" },
+        "title": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "createdAt": { "type": "integer" }
+      },
+      "required": ["id", "coupleSpaceId", "title", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profiles"
+    },
+    "/coupleSpaces/{spaceId}": {
+      "schema": { "$ref": "#/entities/CoupleSpace" },
+      "description": "Shared spaces for couples"
+    },
+    "/coupleSpaces/{spaceId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Messages within a couple space"
+    },
+    "/coupleSpaces/{spaceId}/dailyQuestions/{questionId}": {
+      "schema": { "$ref": "#/entities/DailyQuestion" },
+      "description": "Daily questions for a couple"
+    },
+    "/coupleSpaces/{spaceId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/Memory" },
+      "description": "Memories timeline for a couple"
+    },
+    "/coupleSpaces/{spaceId}/moods/{moodId}": {
+      "schema": { "$ref": "#/entities/Mood" },
+      "description": "Mood tracking for a couple"
+    },
+    "/coupleSpaces/{spaceId}/capsules/{capsuleId}": {
+      "schema": { "$ref": "#/entities/LoveCapsule" },
+      "description": "Scheduled surprises"
+    },
+    "/coupleSpaces/{spaceId}/dreams/{dreamId}": {
+      "schema": { "$ref": "#/entities/Dream" },
+      "description": "Shared goals"
+    },
+    "/coupleSpaces/{spaceId}/calls/{callId}": {
+      "schema": { "$ref": "#/entities/Call" },
+      "description": "Active or past calls"
+    },
+    "/coupleSpaces/{spaceId}/calls/{callId}/callerCandidates/{candidateId}": {
+      "schema": { "$ref": "#/entities/CallCandidate" },
+      "description": "ICE candidate from caller"
+    },
+    "/coupleSpaces/{spaceId}/calls/{callId}/calleeCandidates/{candidateId}": {
+      "schema": { "$ref": "#/entities/CallCandidate" },
+      "description": "ICE candidate from callee"
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "User notifications"
+    }
+  }
+}

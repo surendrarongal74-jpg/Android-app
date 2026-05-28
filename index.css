@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --color-blush-rose: #F2A7BE;
+  --color-deep-rose: #E8547A;
+  --color-warm-cream: #FFF6F9;
+  --color-dusty-mauve: #9B7A87;
+  --color-deep-plum: #2B1A2E;
+  --color-soft-pink-glow: #FFD9E4;
+  --color-lavender-haze: #EDE3FF;
+  
+  --animate-heartbeat: heartbeat 1.5s ease-in-out infinite both;
+  --animate-wave: wave 2.5s infinite;
+  
+  --color-love-50: #FFF5F8; /* Extra light background */
+  --color-love-100: #FFF0F5; /* Lavender Blush */
+  --color-love-200: #FFDDE4; /* Blush Pink */
+  --color-love-300: #FFC1CC; /* Baby Pink */
+  --color-love-400: #FF8FAB; /* Rose Pink */
+  --color-love-500: #FF668C; /* Deeper for text/icons */
+  
+  @keyframes heartbeat {
+    from {
+      transform: scale(1);
+      transform-origin: center center;
+      animation-timing-function: ease-out;
+    }
+    10% {
+      transform: scale(0.91);
+      animation-timing-function: ease-in;
+    }
+    17% {
+      transform: scale(0.98);
+      animation-timing-function: ease-out;
+    }
+    33% {
+      transform: scale(0.87);
+      animation-timing-function: ease-in;
+    }
+    45% {
+      transform: scale(1);
+      animation-timing-function: ease-out;
+    }
+  }
+
+  @keyframes wave {
+    0% { transform: rotate(0.0deg) }
+    10% { transform: rotate(14.0deg) }
+    20% { transform: rotate(-8.0deg) }
+    30% { transform: rotate(14.0deg) }
+    40% { transform: rotate(-4.0deg) }
+    50% { transform: rotate(10.0deg) }
+    60% { transform: rotate(0.0deg) }
+    100% { transform: rotate(0.0deg) }
+  }
+}
+
+body {
+  @apply bg-love-50 text-slate-800 selection:bg-love-200;
+  background: linear-gradient(to bottom right, #FFFFFF, #FFF5F8);
+  background-attachment: fixed;
+}
+
+.glass-card {
+  @apply bg-white/95 border border-[#FFDDE4]/40 shadow-[0_4px_20px_rgba(255,193,204,0.08)] rounded-[1.5rem] transition-all duration-300;
+  will-change: transform, opacity;
+}
+
+.cloud-card {
+  @apply bg-white/95 border border-[#FFDDE4]/50 shadow-[0_4px_25px_rgba(255,245,248,0.4)] rounded-[2.5rem] transition-all duration-300;
+  will-change: transform, opacity;
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(255, 193, 204, 0.25);
+  will-change: transform, opacity;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
